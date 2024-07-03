@@ -1,6 +1,18 @@
 plugins {
     alias(libs.plugins.android.library)
     alias(libs.plugins.jetbrains.kotlin.android)
+    id 'maven-publish'
+}
+
+afterEvaluate {
+    android.libraryVariants.each {variant->
+        publishing.publications.create(variant.name,MavenPublication){
+            from components.findByName(variant.name)
+            groupId = 'com.kuma'//自定义
+            artifactId = 'KumaImageView'//自定义
+            version = '0.1.1'//自定义
+        }
+    }
 }
 
 android {
